@@ -1,6 +1,6 @@
 # JavaScript Prettier
 
-[![Build status](https://ci.appveyor.com/api/projects/status/t38jbrjn8akd2jla?svg=true)](https://ci.appveyor.com/project/madskristensen/javascriptprettier)
+[![Build status](https://ci.appveyor.com/api/projects/status/o94pde4v2n59e9ql?svg=true)](https://ci.appveyor.com/project/madskristensen/nodeexecutor)
 
 Download this extension from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.JavaScriptPrettier)
 or get the [CI build](http://vsixgallery.com/extension/8c9a390f-5137-4f1d-b401-5cd079e6faa9/).
