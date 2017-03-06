@@ -32,6 +32,7 @@ namespace NodeExecutor
     {
         public const int MyMenuGroup = 0x1020;
         public const int PrettierCommandId = 0x0100;
+        public const int ExecuteSolExp = 0x0200;
         public const int Logo = 0x0001;
     }
 }

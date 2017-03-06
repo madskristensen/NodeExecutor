@@ -19,6 +19,8 @@ Invoke the command from the context menu in the JavaScript editor.
 
 This will run node.exe in a console window (cmd.exe).
 
+The same command is also available on the context-menu in Solution Explorer when envoked on a .js file.
+
 ## Contribute
 Check out the [contribution guidelines](.github/CONTRIBUTING.md)
 if you want to contribute to this project.

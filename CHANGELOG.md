@@ -15,3 +15,4 @@ on the official Visual Studio extension gallery.
 
 - [x] Initial release
 - [x] Executes .js files using node.exe
+- [x] Command on .js files in Solution Explorer
