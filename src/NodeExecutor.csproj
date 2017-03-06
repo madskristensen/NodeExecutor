@@ -48,14 +48,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\ExecuteCommand.cs" />
-    <Compile Include="Commands\CommandRegistration.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="NodeProcess.cs" />
     <Compile Include="NodeExecutorPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Commands\SolutionExplorerCommand.cs" />
+    <Compile Include="Commands\ExecuteCommand.cs" />
     <Compile Include="source.extension.cs">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>

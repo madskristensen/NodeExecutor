@@ -3,6 +3,8 @@ using System;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio;
 
 namespace NodeExecutor
 {
@@ -10,21 +12,14 @@ namespace NodeExecutor
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
     [Guid(PackageGuids.guidPrettierPackageString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideAutoLoad(UIContextRule)]
-    [ProvideUIContextRule(UIContextRule,
-        name: "Test auto load",
-        expression: "js",
-        termNames: new[] { "js" },
-        termValues: new[] { "HierSingleSelectionName:.js$" })]
+    [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string)]
     public sealed class NodeExecutorPackage : AsyncPackage
     {
-        private const string UIContextRule = "b6b8bfd2-2af9-4dec-9dfb-4c1297eca6e7";
-
         protected override async System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             if (await GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
             {
-                SolutionExplorerCommand.Initialize(this, commandService);
+                ExecuteCommand.Initialize(this, commandService);
             }
         }
     }

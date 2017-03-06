@@ -6,24 +6,12 @@
 
     <Commands package="guidPrettierPackage">
         <Groups>
-            <Group guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0300">
-                <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
-            </Group>
+            <Group guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0300" />
         </Groups>
 
         <Buttons>
-            <Button guid="guidPrettierPackageCmdSet" id="PrettierCommandId" priority="0x0100" type="Button">
-                <Parent guid="guidPrettierPackageCmdSet" id="MyMenuGroup" />
-                <Icon guid="icons" id="Logo" />
-                <CommandFlag>DefaultDisabled</CommandFlag>
-                <CommandFlag>DefaultInvisible</CommandFlag>
-                <CommandFlag>DynamicVisibility</CommandFlag>
-                <Strings>
-                    <ButtonText>Execute File</ButtonText>
-                </Strings>
-            </Button>
             <Button guid="guidPrettierPackageCmdSet" id="ExecuteSolExp" priority="0x0100" type="Button">
-                <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_ITEM_OPEN"/>
+                <Parent guid="guidPrettierPackageCmdSet" id="MyMenuGroup"/>
                 <Icon guid="icons" id="Logo" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <CommandFlag>DefaultInvisible</CommandFlag>
@@ -39,10 +27,20 @@
         </Bitmaps>
     </Commands>
 
+    <CommandPlacements>
+        <CommandPlacement guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0200">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0200">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0300">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+        </CommandPlacement>
+    </CommandPlacements>
+
     <KeyBindings>
-        <KeyBinding guid="guidPrettierPackageCmdSet" id="PrettierCommandId" mod1="Control" mod2="Control" key1="K" key2="E" editor="TypeScriptEditor" />
-        <KeyBinding guid="guidPrettierPackageCmdSet" id="PrettierCommandId" mod1="Control" mod2="Control" key1="K" key2="E" editor="JavaScriptEditor" />
-        <KeyBinding guid="guidPrettierPackageCmdSet" id="PrettierCommandId" mod1="Control" mod2="Control" key1="K" key2="E" editor="LegacyJavaScriptEditor" />
+        <KeyBinding guid="guidPrettierPackageCmdSet" id="PrettierCommandId" mod1="Control" mod2="Control" key1="K" key2="E" editor="guidVSStd97" />
     </KeyBindings>
 
     <Symbols>
@@ -57,10 +55,5 @@
         <GuidSymbol name="icons" value="{31947ebe-91b7-45f9-96cf-401bfc671aa2}">
             <IDSymbol name="Logo" value="0x0001" />
         </GuidSymbol>
-
-        <!-- Existing editor guids -->
-        <GuidSymbol name="TypeScriptEditor" value="{0f2454b1-a556-402d-a7d0-1fde7f99dee0}" />
-        <GuidSymbol name="JavaScriptEditor" value="{14d17961-fe51-464d-9111-c4af11d7d99a}" />
-        <GuidSymbol name="LegacyJavaScriptEditor" value="{8B382828-6202-11d1-8870-0000F87579D2}" />
     </Symbols>
 </CommandTable>

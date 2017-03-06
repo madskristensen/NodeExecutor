@@ -1,45 +1,76 @@
-﻿using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.OLE.Interop;
-using Microsoft.VisualStudio.Text.Editor;
+﻿using EnvDTE;
+using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 using System;
+using System.ComponentModel.Design;
+using System.IO;
+using System.Linq;
 
 namespace NodeExecutor
 {
-    internal sealed class ExecuteCommand : BaseCommand
+    internal sealed class ExecuteCommand
     {
-        private Guid _commandGroup = PackageGuids.guidPrettierPackageCmdSet;
-        private const uint _commandId = PackageIds.PrettierCommandId;
+        public static string[] FileExtensions { get; } = { ".js", ".es6" };
 
-        private IWpfTextView _view;
-        private string _filePath;
+        private readonly Package package;
+        private string _fileName;
 
-        public ExecuteCommand(IWpfTextView view, string filePath)
+        private ExecuteCommand(Package package, OleMenuCommandService commandService)
         {
-            _view = view;
-            _filePath = filePath;
+            this.package = package;
+
+            var cmdId = new CommandID(PackageGuids.guidPrettierPackageCmdSet, PackageIds.ExecuteSolExp);
+            var cmd = new OleMenuCommand(Execute, cmdId);
+            cmd.BeforeQueryStatus += BeforeQueryStatus;
+            commandService.AddCommand(cmd);
         }
 
-        public override int Exec(ref Guid pguidCmdGroup, uint nCmdID, uint nCmdexecopt, IntPtr pvaIn, IntPtr pvaOut)
+        public static ExecuteCommand Instance
         {
-            if (pguidCmdGroup == _commandGroup && nCmdID == _commandId)
-            {
-                NodeProcess.ExecuteFile(_filePath);
-
-                return VSConstants.S_OK;
-            }
-
-            return Next.Exec(pguidCmdGroup, nCmdID, nCmdexecopt, pvaIn, pvaOut);
+            get;
+            private set;
         }
 
-        public override int QueryStatus(ref Guid pguidCmdGroup, uint cCmds, OLECMD[] prgCmds, IntPtr pCmdText)
+        private IServiceProvider ServiceProvider
         {
-            if (pguidCmdGroup == _commandGroup && prgCmds[0].cmdID == _commandId)
+            get { return package; }
+        }
+
+        public static void Initialize(Package package, OleMenuCommandService commandService)
+        {
+            Instance = new ExecuteCommand(package, commandService);
+        }
+
+        private void BeforeQueryStatus(object sender, EventArgs e)
+        {
+            var button = (OleMenuCommand)sender;
+            button.Visible = button.Enabled = false;
+
+            var dte = ServiceProvider.GetService(typeof(DTE)) as DTE2;
+
+            if (dte.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument)
             {
-                prgCmds[0].cmdf = (uint)OLECMDF.OLECMDF_ENABLED | (uint)OLECMDF.OLECMDF_SUPPORTED;
-                return VSConstants.S_OK;
+                _fileName = dte.ActiveDocument.FullName;
+            }
+            else if (dte.SelectedItems.Count == 1)
+            {
+                _fileName = dte.SelectedItems?.Item(1)?.ProjectItem?.FileNames[0];
             }
 
-            return Next.QueryStatus(pguidCmdGroup, cCmds, prgCmds, pCmdText);
+            if (string.IsNullOrEmpty(_fileName))
+                return;
+
+            string ext = Path.GetExtension(_fileName);
+
+            if (FileExtensions.Contains(ext, StringComparer.OrdinalIgnoreCase))
+            {
+                button.Visible = button.Enabled = true;
+            }
+        }
+
+        private void Execute(object sender, EventArgs e)
+        {
+            NodeProcess.ExecuteFile(_fileName);
         }
     }
 }
