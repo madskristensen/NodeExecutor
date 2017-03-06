@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+  <Include href="KnownImageIds.vsct"/>
+
+  <Commands package="guidPrettierPackage">
+    <Groups>
+      <Group guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0300">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidPrettierPackageCmdSet" id="PrettierCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidPrettierPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="icons" id="Logo"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Execute File</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+      <Bitmaps>
+          <Bitmap guid="icons" href="Resources\Glyph.png" usedList="Logo"/>
+      </Bitmaps>
+  </Commands>
+
+  <KeyBindings>
+    <KeyBinding guid="guidPrettierPackageCmdSet" id="PrettierCommandId" mod1="Control" mod2="Control" key1="K" key2="E" editor="TypeScriptEditor"/>
+    <KeyBinding guid="guidPrettierPackageCmdSet" id="PrettierCommandId" mod1="Control" mod2="Control" key1="K" key2="E" editor="JavaScriptEditor"/>
+    <KeyBinding guid="guidPrettierPackageCmdSet" id="PrettierCommandId" mod1="Control" mod2="Control" key1="K" key2="E" editor="LegacyJavaScriptEditor"/>
+  </KeyBindings>
+
+  <Symbols>
+    <GuidSymbol name="guidPrettierPackage" value="{27196299-e92a-4dbd-b259-4c5b4baa7e31}" />
+
+    <GuidSymbol name="guidPrettierPackageCmdSet" value="{ddfb1230-e89f-4847-881e-6ed29ecdbacf}">
+      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="PrettierCommandId" value="0x0100" />
+    </GuidSymbol>
+
+      <GuidSymbol name="icons" value="{31947ebe-91b7-45f9-96cf-401bfc671aa2}">
+          <IDSymbol name="Logo" value="0x0001" />
+      </GuidSymbol>
+
+    <!-- Existing editor guids -->
+    <GuidSymbol name="TypeScriptEditor" value="{0f2454b1-a556-402d-a7d0-1fde7f99dee0}" />
+    <GuidSymbol name="JavaScriptEditor" value="{14d17961-fe51-464d-9111-c4af11d7d99a}" />
+    <GuidSymbol name="LegacyJavaScriptEditor" value="{8B382828-6202-11d1-8870-0000F87579D2}" />
+  </Symbols>
+</CommandTable>
