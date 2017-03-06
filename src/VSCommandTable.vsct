@@ -3,7 +3,6 @@
 
   <Extern href="stdidcmd.h"/>
   <Extern href="vsshlids.h"/>
-  <Include href="KnownImageIds.vsct"/>
 
   <Commands package="guidPrettierPackage">
     <Groups>

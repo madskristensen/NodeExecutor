@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using System;
-using System.IO;
 
 namespace NodeExecutor
 {
@@ -12,13 +11,11 @@ namespace NodeExecutor
         private const uint _commandId = PackageIds.PrettierCommandId;
 
         private IWpfTextView _view;
-        private NodeProcess _node;
         private string _filePath;
 
-        public ExecuteCommand(IWpfTextView view, NodeProcess node, string filePath)
+        public ExecuteCommand(IWpfTextView view, string filePath)
         {
             _view = view;
-            _node = node;
             _filePath = filePath;
         }
 
@@ -26,10 +23,7 @@ namespace NodeExecutor
         {
             if (pguidCmdGroup == _commandGroup && nCmdID == _commandId)
             {
-                if (_node != null)
-                {
-                    _node.ExecuteFile(_filePath);
-                }
+                NodeProcess.ExecuteFile(_filePath);
 
                 return VSConstants.S_OK;
             }

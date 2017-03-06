@@ -6,7 +6,7 @@ namespace NodeExecutor
 {
     internal class NodeProcess
     {
-        public void ExecuteFile(string filePath)
+        public static void ExecuteFile(string filePath)
         {
             var start = new ProcessStartInfo("cmd", $"/k node.exe {Path.GetFileName(filePath)}")
             {
