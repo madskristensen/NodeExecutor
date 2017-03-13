@@ -1,4 +1,4 @@
-# JavaScript Prettier
+# Node Executor
 
 [![Build status](https://ci.appveyor.com/api/projects/status/o94pde4v2n59e9ql?svg=true)](https://ci.appveyor.com/project/madskristensen/nodeexecutor)
 
