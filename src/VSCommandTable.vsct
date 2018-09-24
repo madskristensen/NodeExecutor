@@ -1,59 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <Extern href="stdidcmd.h" />
-    <Extern href="vsshlids.h" />
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
 
-    <Commands package="guidPrettierPackage">
-        <Groups>
-            <Group guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0300" />
-        </Groups>
+  <Commands package="guidPrettierPackage">
+    <Groups>
+      <Group guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0300" />
+    </Groups>
 
-        <Buttons>
-            <Button guid="guidPrettierPackageCmdSet" id="ExecuteSolExp" priority="0x0100" type="Button">
-                <Parent guid="guidPrettierPackageCmdSet" id="MyMenuGroup"/>
-                <Icon guid="icons" id="Logo" />
-                <CommandFlag>DefaultDisabled</CommandFlag>
-                <CommandFlag>DefaultInvisible</CommandFlag>
-                <CommandFlag>DynamicVisibility</CommandFlag>
-                <Strings>
-                    <ButtonText>Execute File</ButtonText>
-                </Strings>
-            </Button>
-        </Buttons>
+    <Buttons>
+      <Button guid="guidPrettierPackageCmdSet" id="ExecuteSolExp" priority="0x0100" type="Button">
+        <Parent guid="guidPrettierPackageCmdSet" id="MyMenuGroup"/>
+        <Icon guid="icons" id="Logo" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Execute File</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
 
-        <Bitmaps>
-            <Bitmap guid="icons" href="Resources\Glyph.png" usedList="Logo" />
-        </Bitmaps>
-    </Commands>
+    <Bitmaps>
+      <Bitmap guid="icons" href="Resources\Glyph.png" usedList="Logo" />
+    </Bitmaps>
+  </Commands>
 
-    <CommandPlacements>
-        <CommandPlacement guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0200">
-            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
-        </CommandPlacement>
-        <CommandPlacement guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0200">
-            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
-        </CommandPlacement>
-        <CommandPlacement guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0300">
-            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
-        </CommandPlacement>
-    </CommandPlacements>
+  <CommandPlacements>
+    <CommandPlacement guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0200">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0200">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidPrettierPackageCmdSet" id="MyMenuGroup" priority="0x0300">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+    </CommandPlacement>
+  </CommandPlacements>
 
-    <KeyBindings>
-        <KeyBinding guid="guidPrettierPackageCmdSet" id="PrettierCommandId" mod1="Control" mod2="Control" key1="K" key2="E" editor="guidVSStd97" />
-    </KeyBindings>
+  <KeyBindings>
+    <KeyBinding guid="guidPrettierPackageCmdSet" id="PrettierCommandId" mod1="Control" mod2="Control" key1="K" key2="E" editor="guidVSStd97" />
+  </KeyBindings>
 
-    <Symbols>
-        <GuidSymbol name="guidPrettierPackage" value="{27196299-e92a-4dbd-b259-4c5b4baa7e31}" />
+  <VisibilityConstraints>
+    <VisibilityItem guid="guidPrettierPackageCmdSet" id="MyMenuGroup" context="guidAutoload" />
+  </VisibilityConstraints>
 
-        <GuidSymbol name="guidPrettierPackageCmdSet" value="{ddfb1230-e89f-4847-881e-6ed29ecdbacf}">
-            <IDSymbol name="MyMenuGroup" value="0x1020" />
-            <IDSymbol name="PrettierCommandId" value="0x0100" />
-            <IDSymbol name="ExecuteSolExp" value="0x0200" />
-        </GuidSymbol>
+  <Symbols>
+    <GuidSymbol name="guidPrettierPackage" value="{27196299-e92a-4dbd-b259-4c5b4baa7e31}" />
+    <GuidSymbol name="guidAutoload" value="{27196299-e92a-4dbd-b259-4c5b4baa7e31}" />
 
-        <GuidSymbol name="icons" value="{31947ebe-91b7-45f9-96cf-401bfc671aa2}">
-            <IDSymbol name="Logo" value="0x0001" />
-        </GuidSymbol>
-    </Symbols>
+    <GuidSymbol name="guidPrettierPackageCmdSet" value="{ddfb1230-e89f-4847-881e-6ed29ecdbacf}">
+      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="PrettierCommandId" value="0x0100" />
+      <IDSymbol name="ExecuteSolExp" value="0x0200" />
+    </GuidSymbol>
+
+    <GuidSymbol name="icons" value="{31947ebe-91b7-45f9-96cf-401bfc671aa2}">
+      <IDSymbol name="Logo" value="0x0001" />
+    </GuidSymbol>
+  </Symbols>
 </CommandTable>

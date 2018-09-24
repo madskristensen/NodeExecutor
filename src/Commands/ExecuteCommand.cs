@@ -1,27 +1,24 @@
-﻿using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
-using System;
+﻿using System;
 using System.ComponentModel.Design;
-using System.IO;
-using System.Linq;
+using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 
 namespace NodeExecutor
 {
     internal sealed class ExecuteCommand
     {
-        public static string[] FileExtensions { get; } = { ".js", ".es6" };
-
         private readonly Package package;
-        private string _fileName;
 
         private ExecuteCommand(Package package, OleMenuCommandService commandService)
         {
             this.package = package;
 
             var cmdId = new CommandID(PackageGuids.guidPrettierPackageCmdSet, PackageIds.ExecuteSolExp);
-            var cmd = new OleMenuCommand(Execute, cmdId);
-            cmd.BeforeQueryStatus += BeforeQueryStatus;
+            var cmd = new OleMenuCommand(Execute, cmdId)
+            {
+                Supported = false
+            };
+
             commandService.AddCommand(cmd);
         }
 
@@ -41,36 +38,31 @@ namespace NodeExecutor
             Instance = new ExecuteCommand(package, commandService);
         }
 
-        private void BeforeQueryStatus(object sender, EventArgs e)
+        private void Execute(object sender, EventArgs e)
         {
-            var button = (OleMenuCommand)sender;
-            button.Visible = button.Enabled = false;
+            var dte = ServiceProvider.GetService(typeof(DTE)) as DTE;
+            string fileName = GetFileName(dte);
 
-            var dte = ServiceProvider.GetService(typeof(DTE)) as DTE2;
+            if (string.IsNullOrEmpty(fileName))
+                return;
+
+            NodeProcess.ExecuteFile(fileName);
+        }
+
+        private static string GetFileName(DTE dte)
+        {
+            string fileName = null;
 
             if (dte.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument)
             {
-                _fileName = dte.ActiveDocument.FullName;
+                fileName = dte.ActiveDocument.FullName;
             }
             else if (dte.SelectedItems.Count == 1)
             {
-                _fileName = dte.SelectedItems?.Item(1)?.ProjectItem?.FileNames[0];
+                fileName = dte.SelectedItems?.Item(1)?.ProjectItem?.FileNames[0];
             }
 
-            if (string.IsNullOrEmpty(_fileName))
-                return;
-
-            string ext = Path.GetExtension(_fileName);
-
-            if (FileExtensions.Contains(ext, StringComparer.OrdinalIgnoreCase))
-            {
-                button.Visible = button.Enabled = true;
-            }
-        }
-
-        private void Execute(object sender, EventArgs e)
-        {
-            NodeProcess.ExecuteFile(_fileName);
+            return fileName;
         }
     }
 }
